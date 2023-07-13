@@ -76,7 +76,7 @@ dependencies {
     compile "li.cil.oc:OpenComputers:${config.oc_version}:api"
     compile "mezz.jei:jei_${config.mc_version}:${config.jei_version}"
 	compile "cofh:RedstoneFlux:${config.rf_mc_version}-${config.rf_version}:deobf"
-    deobfCompile "curse.maven:gregtech-ce-unofficial-557242:4390983"
+    deobfCompile "curse.maven:gregtech-ce-unofficial-557242:4641114"
 }
 
 processResources

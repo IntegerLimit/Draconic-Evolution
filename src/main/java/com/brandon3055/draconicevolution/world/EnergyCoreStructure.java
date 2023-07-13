@@ -17,12 +17,7 @@ import com.brandon3055.draconicevolution.utils.LogHelper;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.properties.IMaterialProperty;
-import gregtech.api.unification.material.properties.MaterialProperties;
-import gregtech.api.unification.stack.MaterialStack;
 import gregtech.common.blocks.BlockCompressed;
-import gregtech.common.blocks.CompressedItemBlock;
 import gregtech.common.blocks.MetaBlocks;
 
 import net.minecraft.block.Block;
@@ -63,8 +58,8 @@ public class EnergyCoreStructure extends BlockStateMultiblockHelper {
     public EnergyCoreStructure initialize(TileEnergyStorageCore core) {
 
         // Initialize Custom Materials
-        Material gtDraconiumMaterial = GregTechAPI.MaterialRegistry.get("draconium");
-        Material gtAwakenedMaterial = GregTechAPI.MaterialRegistry.get("awakened_draconium");
+        Material gtDraconiumMaterial = GregTechAPI.materialManager.getMaterial("draconium");
+        Material gtAwakenedMaterial = GregTechAPI.materialManager.getMaterial("awakened_draconium");
 
         // Empty
         e = new IBlockState[]{Blocks.AIR.getDefaultState()};
@@ -326,7 +321,7 @@ public class EnergyCoreStructure extends BlockStateMultiblockHelper {
 
         if (block instanceof BlockCompressed) {
             BlockCompressed compressed = (BlockCompressed) block;
-            Material material = state.getValue(compressed.variantProperty);
+            Material material = state.getValue(compressed.getVariantProperty());
             int color = material.getMaterialRGB();
             int r = (color & 0xFF0000) >> (4 * Integer.BYTES);
             int g = (color & 0x00FF00) >> (2 * Integer.BYTES);
