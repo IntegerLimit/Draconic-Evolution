@@ -1,9 +1,7 @@
 package com.brandon3055.draconicevolution.world;
 
-import com.brandon3055.brandonscore.lib.MultiBlockStorage;
 import com.brandon3055.brandonscore.lib.Vec3D;
 import com.brandon3055.brandonscore.utils.ModelUtils;
-import com.brandon3055.brandonscore.utils.MultiBlockHelper;
 import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.DEConfig;
 import com.brandon3055.draconicevolution.DEFeatures;
@@ -14,17 +12,10 @@ import com.brandon3055.draconicevolution.client.handler.ClientEventHandler;
 import com.brandon3055.draconicevolution.utils.BlockStateMultiblockHelper;
 import com.brandon3055.draconicevolution.utils.BlockStateMultiblockStorage;
 import com.brandon3055.draconicevolution.utils.LogHelper;
-
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.Material;
-import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.material.properties.IMaterialProperty;
-import gregtech.api.unification.material.properties.MaterialProperties;
-import gregtech.api.unification.stack.MaterialStack;
 import gregtech.common.blocks.BlockCompressed;
-import gregtech.common.blocks.CompressedItemBlock;
 import gregtech.common.blocks.MetaBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -32,8 +23,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -41,7 +30,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -63,8 +51,8 @@ public class EnergyCoreStructure extends BlockStateMultiblockHelper {
     public EnergyCoreStructure initialize(TileEnergyStorageCore core) {
 
         // Initialize Custom Materials
-        Material gtDraconiumMaterial = GregTechAPI.MaterialRegistry.get("draconium");
-        Material gtAwakenedMaterial = GregTechAPI.MaterialRegistry.get("awakened_draconium");
+        Material gtDraconiumMaterial = GregTechAPI.materialManager.getMaterial("draconium");
+        Material gtAwakenedMaterial = GregTechAPI.materialManager.getMaterial("awakened_draconium");
 
         // Empty
         e = new IBlockState[]{Blocks.AIR.getDefaultState()};
@@ -326,7 +314,7 @@ public class EnergyCoreStructure extends BlockStateMultiblockHelper {
 
         if (block instanceof BlockCompressed) {
             BlockCompressed compressed = (BlockCompressed) block;
-            Material material = state.getValue(compressed.variantProperty);
+            Material material = compressed.getGtMaterial(state);
             int color = material.getMaterialRGB();
             int r = (color & 0xFF0000) >> (4 * Integer.BYTES);
             int g = (color & 0x00FF00) >> (2 * Integer.BYTES);
